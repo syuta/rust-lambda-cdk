@@ -1,0 +1,9 @@
+/target/
+**/*.rs.bk
+
+.DS_Store
+lambda.zip
+cdk.out
+
+node_modules
+.idea
