@@ -13,7 +13,6 @@ export class LambdaStack extends core.Stack {
 
     const bootstrapLocation = `${__dirname}/../../target/cdk/release`;
 
-    // Our Lambda function details.
     const entryId = "main";
     const entryFnName = `${id}-${entryId}`;
     const entry = new lambda.Function(this, entryId, {

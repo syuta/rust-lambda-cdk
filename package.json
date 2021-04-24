@@ -9,7 +9,11 @@
     "build:clean": "rm -r ./target/cdk/release || echo '[build:clean] No existing release found.'",
     "deploy": "npm run build:clean && npm run build && npm run cdk:deploy",
     "cdk:deploy": "[[ $CI == 'true' ]] && export CDK_APPROVAL='never' || export CDK_APPROVAL='broadening'; cdk deploy --require-approval $CDK_APPROVAL '*'",
-    "cdk:bootstrap": "cdk bootstrap aws://$(aws sts get-caller-identity | jq -r .Account)/$AWS_REGION"
+    "cdk:bootstrap": "cdk bootstrap aws://$(aws sts get-caller-identity | jq -r .Account)/$AWS_REGION",
+    "cdklocal:start": "docker-compose up",
+    "cdklocal:clear-cache": "(rm ~/.cdk/cache/accounts.json || true) && (rm ~/.cdk/cache/accounts_partitions.json || true)",
+    "cdklocal:deploy": "npm run --silent cdklocal:clear-cache && CDK_LOCAL=true  cdklocal deploy --require-approval never '*'",
+    "cdklocal:bootstrap": "npm run --silent cdklocal:clear-cache && CDK_LOCAL=true  cdklocal bootstrap aws://000000000000/us-west-1"
   },
   "dependencies": {
     "@aws-cdk/aws-lambda": "^1.99.0",
